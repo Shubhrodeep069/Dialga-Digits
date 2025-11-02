@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Number Guesser</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="theme-galaxy">
+
+    <div class="bg-particles" id="bg-particles"></div>
+    <div class="math-pattern" id="math-pattern"></div>
+
+    <!-- Side Menu -->
+    <div class="side-menu" id="side-menu">
+        <div class="menu-header">
+            <h2>Cosmic Control Center</h2>
+            <p>Master the Universe of Numbers</p>
+        </div>
+        <div class="menu-content">
+            <!-- Progression System -->
+            <div class="menu-section">
+                <h3><i class="fas fa-chart-line"></i> Progression</h3>
+                <div class="level-indicator">
+                    <div class="level-number" id="level-number">1</div>
+                    <div class="level-title" id="level-title">Number Novice</div>
+                </div>
+                <div class="progression-bar">
+                    <div class="progression-fill" id="progression-fill"></div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="menu-total-guesses">0</div>
+                        <div class="stat-label">Total Guesses</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="menu-numbers-found">0</div>
+                        <div class="stat-label">Numbers Found</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="menu-accuracy">0%</div>
+                        <div class="stat-label">Accuracy</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="menu-streak">0</div>
+                        <div class="stat-label">Current Streak</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skill Tree -->
+            <div class="menu-section">
+                <h3><i class="fas fa-star"></i> Cosmic Abilities</h3>
+                <div class="skill-tree">
+                    <div class="skill-node available" data-skill="range-boost">
+                        <div class="skill-icon">🎯</div>
+                        <div class="skill-name">Range Sense</div>
+                        <div class="skill-cost">Cost: 5 XP</div>
+                    </div>
+                    <div class="skill-node locked" data-skill="prime-vision">
+                        <div class="skill-icon">🔍</div>
+                        <div class="skill-name">Prime Vision</div>
+                        <div class="skill-cost">Cost: 10 XP</div>
+                    </div>
+                    <div class="skill-node locked" data-skill="time-warp">
+                        <div class="skill-icon">⏰</div>
+                        <div class="skill-name">Time Warp</div>
+                        <div class="skill-cost">Cost: 15 XP</div>
+                    </div>
+                    <div class="skill-node locked" data-skill="cosmic-insight">
+                        <div class="skill-icon">🌌</div>
+                        <div class="skill-name">Cosmic Insight</div>
+                        <div class="skill-cost">Cost: 20 XP</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Background Themes -->
+            <div class="menu-section">
+                <h3><i class="fas fa-palette"></i> Cosmic Themes</h3>
+                <div class="theme-grid">
+                    <button class="theme-option active" data-theme="galaxy">
+                        <div class="theme-preview"
+                            style="background: linear-gradient(135deg, #0c0c2e, #1a1a4a, #2d2d6e);"></div>
+                    </button>
+                    <button class="theme-option" data-theme="nebula">
+                        <div class="theme-preview" style="background: linear-gradient(135deg, #667eea, #764ba2);"></div>
+                    </button>
+
+                    <button class="theme-option" data-theme="ember">
+                        <div class="theme-preview"
+                            style="background: linear-gradient(135deg, #8A2387, #E94057, #3d21f2);"></div>
+                    </button>
+                    <button class="theme-option" data-theme="cyber">
+                        <div class="theme-preview"
+                            style="background: linear-gradient(135deg, #00dbde, #fc00ff, #3a1c71);"></div>
+                    </button>
+                    <button class="theme-option" data-theme="royal">
+                        <div class="theme-preview"
+                            style="background: linear-gradient(135deg, #141E30, #243B55, #0F2027);"></div>
+                    </button>
+                    <button class="theme-option" data-theme="lava">
+                        <div class="theme-preview"
+                            style="background: linear-gradient(135deg, #000000, #dd2476, #8B0000);"></div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Number Collection -->
+            <div class="menu-section">
+                <h3><i class="fas fa-collection"></i> Number Collection</h3>
+                <div class="collection-grid">
+                    <div class="collection-card locked" data-number="7">
+                        <div>7</div>
+                        <div class="card-glow"></div>
+                    </div>
+                    <div class="collection-card locked" data-number="42">
+                        <div>42</div>
+                        <div class="card-glow"></div>
+                    </div>
+                    <div class="collection-card locked" data-number="137">
+                        <div>137</div>
+                        <div class="card-glow"></div>
+                    </div>
+                    <div class="collection-card locked" data-number="1729">
+                        <div>1729</div>
+                        <div class="card-glow"></div>
+                    </div>
+                    <div class="collection-card locked" data-number="6174">
+                        <div>6174</div>
+                        <div class="card-glow"></div>
+                    </div>
+                    <div class="collection-card locked" data-number="8128">
+                        <div>8128</div>
+                        <div class="card-glow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menu-overlay"></div>
+
+    <!-- Menu Toggle Button -->
+    <button class="menu-toggle" id="menu-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    <!-- User Manual Button -->
+<button class="user-manual-btn" id="user-manual-btn">
+    <i class="fas fa-book"></i> Guide
+</button>
+
+    <!-- Achievement Popup -->
+    <div class="achievement-popup" id="achievement-popup">
+        <div class="achievement-icon" style="font-size: 3rem;">🎉</div>
+        <h3 id="achievement-title">Achievement Unlocked!</h3>
+        <p id="achievement-desc">You've discovered something amazing!</p>
+    </div>
+
+    <div class="container" id="main-container">
+        <header>
+            <h1>Cosmic Number Guesser</h1>
+            <p class="subtitle">Unlock the secrets of the mathematical universe!</p>
+
+            <!-- Difficulty Selector -->
+            <div class="difficulty-selector">
+                <button class="difficulty-btn active" data-difficulty="novice">Novice (1-50)</button>
+                <button class="difficulty-btn" data-difficulty="explorer">Explorer (1-100)</button>
+                <button class="difficulty-btn" data-difficulty="master">Master (1-200)</button>
+                <button class="difficulty-btn" data-difficulty="cosmic">Cosmic (1-500)</button>
+            </div>
+
+            <!-- Game Mode Selector -->
+            <div class="game-mode-selector"
+                style="margin: 1rem 0; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                <button class="mode-btn active" data-mode="classic">
+                    <i class="fas fa-infinity"></i> Classic Mode
+                </button>
+                <button class="mode-btn" data-mode="timeAttack">
+                    <i class="fas fa-clock"></i> Time Attack
+                </button>
+            </div>
+
+            <!-- Time Attack Duration Selector (Hidden by default) -->
+            <div class="time-attack-duration" id="time-attack-duration"
+                style="display: none; margin: 1rem 0; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                <p style="width: 100%; text-align: center; margin-bottom: 0.5rem; color: var(--text-secondary);">Select
+                    Duration:</p>
+                <button class="duration-btn active" data-duration="60">
+                    <i class="fas fa-clock"></i> 1 Minute
+                </button>
+                <button class="duration-btn" data-duration="120">
+                    <i class="fas fa-clock"></i> 2 Minutes
+                </button>
+                <button class="duration-btn" data-duration="300">
+                    <i class="fas fa-clock"></i> 5 Minutes
+                </button>
+            </div>
+
+            <!-- Timer Display -->
+            <div class="timer-display" id="timer-display" style="display: none;">
+                <div class="stat-item">
+                    <div class="stat-label">Time Left</div>
+                    <div class="stat-value" id="timer-value">1:00</div>
+                </div>
+            </div>
+
+
+
+            <!-- Add this Time Progress Bar -->
+            <div class="time-progress-container" id="time-progress-container" style="display: none;">
+                <div class="time-progress-bar">
+                    <div class="time-progress-fill" id="time-progress-fill"></div>
+                </div>
+                <div class="time-progress-text" id="time-progress-text">100%</div>
+            </div>
+        </header>
+
+        <div class="game-area">
+            <!-- Number Story -->
+            <div class="story-fragment" id="story-fragment" style="display: none;">
+                <strong>The Mysterious Number</strong>
+                <p>This number holds cosmic significance across multiple dimensions...</p>
+                <div class="number-properties" id="number-properties"></div>
+            </div>
+
+            <div class="input-section">
+                <input type="number" id="guess-input" min="1" max="100" placeholder="Enter your guess (1-100)">
+                <button id="guess-btn">
+                    <i class="fas fa-rocket"></i> Unlock Mystery
+                </button>
+            </div>
+
+            <div class="powerup-section">
+                <h3>Cosmic Powerups</h3>
+                <div class="powerups">
+                    <button class="powerup-btn" id="hint-powerup" data-cost="2">
+                        <i class="fas fa-lightbulb"></i> Cosmic Hint (2 attempts)
+                    </button>
+                    <button class="powerup-btn" id="range-powerup" data-cost="3">
+                        <i class="fas fa-bullseye"></i> Narrow Field (3 attempts)
+                    </button>
+                    <button class="powerup-btn" id="reveal-powerup" data-cost="5">
+                        <i class="fas fa-eye"></i> Digit Vision (5 attempts)
+                    </button>
+                </div>
+                <div class="powerup-info">Powerups are automatically used when available</div>
+            </div>
+
+            <div class="hint-section">
+                <div class="hint-emoji" id="hint-emoji">🔮</div>
+                <div class="hint-text" id="hint-text">The cosmic energies await your first guess...</div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-label">Attempts</div>
+                    <div class="stat-value" id="attempts-count">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Range</div>
+                    <div class="stat-value" id="range-value">1 - 100</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">XP</div>
+                    <div class="stat-value" id="xp-value">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Level</div>
+                    <div class="stat-value" id="level-value">1</div>
+                </div>
+            </div>
+
+            <!-- Power Bar -->
+            <div class="power-section" style="margin: 1rem 0;">
+                <div class="stat-item">
+                    <div class="stat-label">Cosmic Power</div>
+                    <div class="power-bar-container"
+                        style="background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; margin: 0.5rem 0; overflow: hidden;">
+                        <div id="power-bar" class="progression-fill"
+                            style="width: 100%; background: var(--success-color); transition: width 0.5s ease;"></div>
+                    </div>
+                    <div class="stat-value" id="power-text">100%</div>
+                </div>
+            </div>
+
+            <!-- Game Log -->
+            <div class="game-log" id="game-log">
+                <div class="attempts-list" id="attempts-list">
+                    <div class="attempt-item">
+                        <span class="attempt-number">-</span>
+                        <span class="attempt-hint">Your guesses will appear here</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="win-message" class="win-message" style="display: none;"></div>
+            <button id="new-game-btn" style="display: none;">
+                <i class="fas fa-redo"></i> Continue Journey
+            </button>
+        </div>
+    </div>
+
+
+    <div class="music-toggle-btn" id="music-toggle">
+        <i class="fas fa-music"></i>
+        <span class="music-text">Music</span>
+    </div>
+
+    <audio id="background-music" loop>
+        <source src="Tum_Mere_Na_Huye(256k).mp3" type="audio/mpeg">
+    </audio>
+
+
+
+
+    <!-- User Manual Modal -->
+<div class="manual-overlay" id="manual-overlay"></div>
+<div class="user-manual-modal" id="user-manual-modal">
+    <div class="user-manual-header">
+        <h2><i class="fas fa-book"></i> Cosmic Number Guesser Guide</h2>
+        <button class="close-manual" id="close-manual">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    
+    <div class="manual-content">
+        <div class="manual-section">
+            <h3><i class="fas fa-gamepad"></i> How to Play</h3>
+            <p>Welcome to Cosmic Number Guesser! Your mission is to discover the mysterious number using cosmic hints and your mathematical intuition.</p>
+            
+            <ul class="manual-feature-list">
+                <li><strong>Select an Era:</strong> Choose from Ancient, Medieval, Renaissance, or Future eras with different number ranges</li>
+                <li><strong>Make Guesses:</strong> Enter numbers and receive cosmic feedback</li>
+                <li><strong>Use Powerups:</strong> Spend attempts to get hints, narrow ranges, or reveal digits</li>
+                <li><strong>Watch the Weather:</strong> Cosmic weather changes based on your closeness to the number</li>
+                <li><strong>Earn Achievements:</strong> Unlock special badges for accomplishments</li>
+            </ul>
+        </div>
+        
+        <div class="manual-section">
+            <h3><i class="fas fa-magic"></i> Powerups Guide</h3>
+            <div class="manual-tip">
+                <strong>Get Hint (2 attempts):</strong> Receive a cosmic insight about the number's properties
+            </div>
+            <div class="manual-tip">
+                <strong>Narrow Range (3 attempts):</strong> Reduce the guessing range by 30%
+            </div>
+            <div class="manual-tip">
+                <strong>Reveal Digit (5 attempts):</strong> See the first digit of the secret number
+            </div>
+        </div>
+        
+        <div class="manual-section">
+            <h3><i class="fas fa-star"></i> Number Personalities</h3>
+            <p>Each number has a unique personality based on its mathematical properties:</p>
+            <ul class="manual-feature-list">
+                <li><strong>Prime Numbers:</strong> Ancient and mysterious - divisible only by 1 and themselves</li>
+                <li><strong>Perfect Squares:</strong> Balanced and geometric - form perfect squares</li>
+                <li><strong>Fibonacci Numbers:</strong> Natural and growing - part of the golden sequence</li>
+                <li><strong>Even Numbers:</strong> Symmetrical and cooperative - can be divided equally</li>
+                <li><strong>Odd Numbers:</strong> Unique and independent - stand alone with character</li>
+            </ul>
+        </div>
+        
+        <div class="manual-section">
+            <h3><i class="fas fa-trophy"></i> Achievements</h3>
+            <ul class="manual-feature-list">
+                <li><strong>🥇 First Guess:</strong> Make your first attempt</li>
+                <li><strong>🚀 Under 10 Attempts:</strong> Solve the puzzle in 10 guesses or less</li>
+                <li><strong>⭐ Perfect Guess:</strong> Find the number with perfect accuracy</li>
+                <li><strong>🔋 Used All Powerups:</strong> Try all available powerups in one game</li>
+            </ul>
+        </div>
+        
+        <div class="manual-section">
+            <h3><i class="fas fa-lightbulb"></i> Pro Tips</h3>
+            <div class="manual-tip">
+                <strong>Start with the middle:</strong> Begin with numbers in the middle of the range to eliminate half the possibilities
+            </div>
+            <div class="manual-tip">
+                <strong>Watch the weather:</strong> The cosmic background changes color based on how close you are
+            </div>
+            <div class="manual-tip">
+                <strong>Manage your power:</strong> Use powerups strategically when you're stuck
+            </div>
+            <div class="manual-tip">
+                <strong>Learn number patterns:</strong> Understanding prime numbers and perfect squares will help you guess faster
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
