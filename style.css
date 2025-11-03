@@ -920,10 +920,7 @@ button:hover {
 }
 
 
-
-
 /* --------------------------------------------Timer Styles------------------------------------------------ */
-/* Enhanced Timer Styles */
 .timer-display {
   animation: cosmic-pulse 2s ease-in-out infinite alternate;
   margin: 1.5rem 0;
@@ -1491,3 +1488,4 @@ body.light-mode .manual-tip {
         padding: 1.5rem;
     }
 }
+
